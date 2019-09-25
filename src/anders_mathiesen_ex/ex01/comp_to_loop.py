@@ -11,8 +11,3 @@ def squares_by_loop(n):
         if k % 3 == 1:
             squares_by_list.append(k**2)
     return squares_by_list
-
-
-print(squares_by_comp(5))
-print(squares_by_loop(5))
-

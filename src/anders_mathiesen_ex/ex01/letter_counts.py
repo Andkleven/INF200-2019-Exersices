@@ -2,14 +2,15 @@
 
 
 def letter_freq(txt):
-    frequencies = {}
+    frequency = {}
     for symbol in list(txt):
-        if symbol in frequencies:
-            frequencies[symbol] += 1
+        symbol = symbol.lower()
+        if symbol in frequency:
+            frequency[symbol] += 1
         else:
-            frequencies[symbol] = 1
+            frequency[symbol] = 1
 
-    return frequencies
+    return frequency
 
 
 if __name__ == '__main__':

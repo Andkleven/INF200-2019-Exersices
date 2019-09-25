@@ -7,23 +7,23 @@ __email__ = 'andermat@nmbu.no'
 
 
 def get_guess_bigger_then_or_lik_1():
-    guess = 0
-    while guess < 1:
-        guess = input('Your guess bigger then or lik 1: ')
+    number = 0
+    while number < 1:
+        number = input('Your guess bigger then or lik 1: ')
         try:
-            guess = int(guess)
-        except:
+            number = int(number)
+        except ValueError:
             print('Enter a number')
-            guess = 0
-    return guess
+            number = 0
+    return number
 
 
 def get_random_number():
     return randint(1, 6) + randint(1, 6)
 
 
-def check_if_guess_is_correct(random_number, guess):
-    return random_number == guess
+def check_if_guess_is_correct(random, one_guess):
+    return random == one_guess
 
 
 if __name__ == '__main__':
