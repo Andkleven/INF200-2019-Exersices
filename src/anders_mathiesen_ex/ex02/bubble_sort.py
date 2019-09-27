@@ -1,5 +1,3 @@
-
-
 def sort_list(list_data):
     new_data = list(list_data)
     for number in range(len(list_data)):
