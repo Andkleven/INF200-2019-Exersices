@@ -35,3 +35,9 @@ def test_odd_and_ordered():
     assert median_list == 2
 
 
+def test_even_and_reverse_ordered():
+    test_list = [2, 1]
+    median_list = median(test_list)
+    assert median_list == 1.5
+
+
