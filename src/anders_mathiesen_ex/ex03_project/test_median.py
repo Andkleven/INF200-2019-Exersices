@@ -47,3 +47,9 @@ def test_empty_list():
         _ = median(test_list)
 
 
+def test_original_unchanged():
+    single_list = [4, 2, 3]
+    _ = median(single_list)
+    assert [4, 2, 3] == single_list
+
+
