@@ -53,3 +53,8 @@ def test_original_unchanged():
     assert [4, 2, 3] == single_list
 
 
+def test_list_and_tuple():
+    single_list = [1, 2, 3]
+    median_list = median(single_list)
+    median_tuple = median(tuple(single_list))
+    assert 2 == median_list and 2 == median_tuple
