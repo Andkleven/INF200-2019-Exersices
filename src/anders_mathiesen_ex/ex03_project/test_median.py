@@ -41,3 +41,9 @@ def test_even_and_reverse_ordered():
     assert median_list == 1.5
 
 
+def test_empty_list():
+    test_list = []
+    with pytest.raises(ValueError):
+        _ = median(test_list)
+
+
