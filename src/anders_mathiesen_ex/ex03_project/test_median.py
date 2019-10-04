@@ -28,3 +28,10 @@ def test_one_element():
     median_list = median(test_list)
     assert median_list == 1
 
+
+def test_odd_and_ordered():
+    test_list = [1, 2, 3]
+    median_list = median(test_list)
+    assert median_list == 2
+
+
