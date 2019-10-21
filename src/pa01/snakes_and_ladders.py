@@ -49,8 +49,6 @@ def multiple_games(num_games, num_players):
         List with the number of moves needed in each game.
     """
 
-<<<<<<< HEAD
-=======
     games = range(num_games)
     moves = []
 
@@ -59,7 +57,6 @@ def multiple_games(num_games, num_players):
 
     return moves
 
->>>>>>> pa01
 
 def multi_game_experiment(num_games, num_players, seed):
     """
@@ -77,10 +74,10 @@ def multi_game_experiment(num_games, num_players, seed):
     Returns
     -------
     num_moves : list
-<<<<<<< HEAD
+
         List with the numbedr of moves needed in each game.
     """
-=======
+
         List with the number of moves needed in each game.
     """
 
@@ -89,4 +86,4 @@ def multi_game_experiment(num_games, num_players, seed):
     random.seed(seed)
 
     return multiple_games(num_games, num_players)
->>>>>>> pa01
+
