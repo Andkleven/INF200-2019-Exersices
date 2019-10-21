@@ -16,6 +16,7 @@ def single_game(num_players):
         Number of moves the winning player needed to reach the goal
     """
 
+
 def multiple_games(num_games, num_players):
     """
     Returns durations of a number of games.
@@ -34,12 +35,13 @@ def multiple_games(num_games, num_players):
     """
 
     games = range(num_games)
-    moves = 0
+    moves = []
 
-    for game in games:
-        moves += single_game(num_players)
+    for _ in games:
+        moves.append(single_game(num_players))
 
     return moves
+
 
 def multi_game_experiment(num_games, num_players, seed):
     """
@@ -59,3 +61,9 @@ def multi_game_experiment(num_games, num_players, seed):
     num_moves : list
         List with the number of moves needed in each game.
     """
+
+    import random
+
+    random.seed(seed)
+
+    return multiple_games(num_games, num_players)
