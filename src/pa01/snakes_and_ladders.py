@@ -75,9 +75,6 @@ def multi_game_experiment(num_games, num_players, seed):
     -------
     num_moves : list
 
-        List with the numbedr of moves needed in each game.
-    """
-
         List with the number of moves needed in each game.
     """
 
