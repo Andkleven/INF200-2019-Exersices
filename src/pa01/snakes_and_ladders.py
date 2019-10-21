@@ -75,9 +75,17 @@ def multi_game_experiment(num_games, num_players, seed):
     num_moves : list
         List with the number of moves needed in each game.
     """
-
     import random
 
     random.seed(seed)
 
     return multiple_games(num_games, num_players)
+
+
+if __name__ == "__main__":
+    import statistics
+    list_of_games = multi_game_experiment(100, 4, 4545)
+    print("The shortest game: {}".format(min(list_of_games)))
+    print("The longest game: {}".format(max(list_of_games)))
+    print("Median: {}".format(statistics.median(list_of_games)))
+    print("Mean: {}".format(statistics.mean(list_of_games)))
