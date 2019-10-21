@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+__author__ = 'Kristian Gunder Kramås, Anders Mathiesen'
+__email__ = 'kristiakr@nmbu.no, andermat@nmbu.no'
+
+
 def single_game(num_players):
     """
         Returns duration of single game.
