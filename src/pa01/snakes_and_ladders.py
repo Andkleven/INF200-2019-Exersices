@@ -31,7 +31,6 @@ def single_game(num_players):
     return min(throws_all_players)
 
 
-
 def multiple_games(num_games, num_players):
     """
     Returns durations of a number of games.
@@ -74,7 +73,6 @@ def multi_game_experiment(num_games, num_players, seed):
     Returns
     -------
     num_moves : list
-
         List with the number of moves needed in each game.
     """
 
@@ -83,4 +81,3 @@ def multi_game_experiment(num_games, num_players, seed):
     random.seed(seed)
 
     return multiple_games(num_games, num_players)
-
