@@ -32,11 +32,6 @@ class BoundedWalker(Walker):
                 break
         self.reset()
 
-        def __repr__(self):
-            return "<Test a:%s>" % (self.steps_to_go_home)
-
-
-
 
 class BoundedSimulation(Simulation):
     """
@@ -61,22 +56,14 @@ class BoundedSimulation(Simulation):
         self.right_limit = right_limit
         self.steps_to_go_home = 0
         self.steps_to_go_home = self.single_walk()
-        if right_limit < max(self.list_of_position) and left_limit > min(self.list_of_position):
-            return None
-        else:
+        if not (right_limit < max(self.list_of_position) and left_limit > min(self.list_of_position)):
             self.steps_to_go_home
-
-        def __repr__(self):
-            return "<Test a:%s>" % (self.steps_to_go_home)
-
 
 
 if __name__ == "__main__":
     left_boundaries = [0, -10, -100, -1000, -10000]
-
     for left_boundarie in left_boundaries:
         test = BoundedWalker(0, 20, left_boundarie, 20)
         print(repr(test.steps_to_go_home))
-        # test2 = BoundedSimulation(0, 20, 21, left_boundarie, 20)
-        # print(repr(test2.steps_to_go_home))
-
+        test2 = BoundedSimulation(0, 20, 21, left_boundarie, 20)
+        print(repr(test2.steps_to_go_home))

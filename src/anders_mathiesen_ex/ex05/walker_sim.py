@@ -7,15 +7,6 @@ __email__ = 'andermat@nmbu.no'
 import random
 
 
-def walk_multiple_times(times):
-    walk_list = []
-    for _ in range(times):
-        walk.go_home()
-        walk_list.append(walk.get_steps())
-        walk.reset()
-    return walk_list
-
-
 class Walker:
     """
      Simulate a student’s way home to Pentagon after a hard night at Samfunnet
@@ -88,6 +79,7 @@ class Simulation:
      Simulate a person way home
     """
     def __init__(self, start, home, seed):
+        self.list_of_position = []
         self.start = start
         self.home = home
         random.seed(seed)
@@ -103,7 +95,6 @@ class Simulation:
        """
         steps_take = 0
         position = self.start
-        self.list_of_position = []
         while position != self.home:
             if random.randint(0, 1):
                 position += 1
@@ -129,8 +120,6 @@ class Simulation:
        """
         list_of_steps = [self.single_walk() for _ in range(num_walks)]
         return list_of_steps
-
-
 
 
 if __name__ == "__main__":

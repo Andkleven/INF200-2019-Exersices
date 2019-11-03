@@ -34,12 +34,12 @@ def test_infinite_numbers():
     lcg = LCGRand(3)
     true = [50421, 847425747, 572982925, 807347327, 1284843143, 1410633816]
     for i, (rand, target) in enumerate(
-        zip(infinite_random_sequence(), true)
+        zip(lcg.infinite_random_sequence(), true)
     ):
         assert rand == target, "The random number was incorrect"
     assert i == len(true) - 1, "The sequence stopped by itself"
 
-    for i, target in enumerate(infinite_random_sequence()):
+    for i, target in enumerate(lcg.infinite_random_sequence()):
         if i > 100:
             break
     else:
