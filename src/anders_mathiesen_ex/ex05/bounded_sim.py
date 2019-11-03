@@ -8,6 +8,20 @@ from walker_sim import Walker, Simulation
 
 
 class BoundedWalker(Walker):
+    """
+    Initialise the walker
+
+    Arguments
+    ---------
+    start : int
+        The walker's initial position
+    home : int
+        The walk ends when the walker reaches home
+    left_limit : int
+        The left boundary of walker movement
+    right_limit : int
+        The right boundary  of walker movement
+    """
     def __init__(self, start, home, left_limit, right_limit):
         super().__init__(start, home)
         self.steps_to_go_home = None
@@ -21,23 +35,26 @@ class BoundedWalker(Walker):
         def __repr__(self):
             return "<Test a:%s>" % (self.steps_to_go_home)
 
-        """
-        Initialise the walker
 
-        Arguments
-        ---------
-        start : int
-            The walker's initial position
-        home : int
-            The walk ends when the walker reaches home
-        left_limit : int
-            The left boundary of walker movement
-        right_limit : int
-            The right boundary  of walker movement
-        """
 
 
 class BoundedSimulation(Simulation):
+    """
+    Initialise the simulation
+
+    Arguments
+    ---------
+    start : int
+        The walker's initial position
+    home : int
+        The walk ends when the walker reaches home
+    seed : int
+        Random generator seed
+    left_limit : int
+        The left boundary of walker movement
+    right_limit : int
+        The right boundary  of walker movement
+    """
     def __init__(self, start, home, seed, left_limit, right_limit):
         super().__init__(start, home, seed)
         self.left_limit = left_limit
@@ -49,22 +66,7 @@ class BoundedSimulation(Simulation):
         def __repr__(self):
             return "<Test a:%s>" % (self.steps_to_go_home)
 
-        """
-        Initialise the simulation
 
-        Arguments
-        ---------
-        start : int
-            The walker's initial position
-        home : int
-            The walk ends when the walker reaches home
-        seed : int
-            Random generator seed
-        left_limit : int
-            The left boundary of walker movement
-        right_limit : int
-            The right boundary  of walker movement
-        """
 
 if __name__ == "__main__":
     left_boundaries = [0, -10, -100, -1000, -10000]
