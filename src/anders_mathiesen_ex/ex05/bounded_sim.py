@@ -59,9 +59,12 @@ class BoundedSimulation(Simulation):
         super().__init__(start, home, seed)
         self.left_limit = left_limit
         self.right_limit = right_limit
-        self.steps_to_go_home = None
-        while left_limit < self.position < right_limit:
-            self.steps_to_go_home = self.single_walk()
+        self.steps_to_go_home = 0
+        self.steps_to_go_home = self.single_walk()
+        if right_limit < max(self.list_of_position) and left_limit > min(self.list_of_position):
+            return None
+        else:
+            self.steps_to_go_home
 
         def __repr__(self):
             return "<Test a:%s>" % (self.steps_to_go_home)

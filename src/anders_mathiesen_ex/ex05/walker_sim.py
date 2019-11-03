@@ -89,7 +89,6 @@ class Simulation:
     """
     def __init__(self, start, home, seed):
         self.start = start
-        self.position = self.start
         self.home = home
         random.seed(seed)
 
@@ -103,12 +102,15 @@ class Simulation:
            The number of steps taken
        """
         steps_take = 0
-        while self.position != self.home:
+        position = self.start
+        self.list_of_position = []
+        while position != self.home:
             if random.randint(0, 1):
-                self.position += 1
+                position += 1
             else:
-                self.position -= 1
+                position -= 1
             steps_take += 1
+            self.list_of_position.append(position)
         return steps_take
 
     def run_simulation(self, num_walks):
@@ -134,10 +136,10 @@ class Simulation:
 if __name__ == "__main__":
     for _ in range(2):
         test = Simulation(0, 10, 12345)
-        print(test.run_simulation(20))
+        print(test.single_walk())
         test = Simulation(10, 0, 12345)
         print(test.run_simulation(20))
     test = Simulation(0, 10, 54321)
-    print(test.run_simulation(20))
+    print(test.single_walk())
     test = Simulation(10, 0, 54321)
     print(test.run_simulation(20))

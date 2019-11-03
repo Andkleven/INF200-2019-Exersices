@@ -19,7 +19,7 @@ class RandIter:
         """
         self.generator = random_number_generator
         self.length = length
-        self.num_generated_numbers = None
+        self.num_generated_numbers = 0
         self.is_iter = False
 
     def __iter__(self):
@@ -56,8 +56,6 @@ class RandIter:
         StopIteration
             If ``self.length`` random numbers are generated.
         """
-        if self.is_iter:
-            raise RuntimeError
         if self.num_generated_numbers <= self.length:
             raise StopIteration
         self.num_generated_numbers += 1
