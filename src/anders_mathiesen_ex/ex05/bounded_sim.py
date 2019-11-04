@@ -4,7 +4,7 @@ __author__ = 'Anders Mathiesen'
 __email__ = 'andermat@nmbu.no'
 
 
-from walker_sim import Walker, Simulation
+from anders_mathiesen_ex.ex05.walker_sim import Walker, Simulation
 
 
 class BoundedWalker(Walker):

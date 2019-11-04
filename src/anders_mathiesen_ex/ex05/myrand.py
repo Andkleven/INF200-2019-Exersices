@@ -98,9 +98,18 @@ class LCGRand:
             A random number.
         """
         while True:
-            rand = self.rand()
-            self.steps += 1
-            yield (rand)
+            yield self.rand()
 
     def random_sequence(self, length):
         return RandIter(self, length)
+
+
+if __name__ == "__main__":
+    random_number_generator = LCGRand(1)
+    for rand in random_number_generator.random_sequence(10):
+        print(rand)
+
+    for i, rand in enumerate(random_number_generator.infinite_random_sequence()):
+        print(f'The {i}-th random number is {rand}')
+        if i > 100:
+            break
