@@ -8,6 +8,9 @@ __author__ = 'Anders Mathiesen, Kristian Kramås'
 __email__ = 'andermat@nmbu.no, kristiakr@nmbu.no'
 
 
+import random
+
+
 class Board:
     def __init__(self, ladders=[(1, 39), (8, 2), (36, 16), (43, 19), (49, 30), (65, 17), (68, 14)], chutes=[(24, 19), (33, 30), (42, 12), (56, 19), (64, 37), (74, 62), (87, 17)], goal=90):
         self.ladders = ladders
@@ -26,18 +29,15 @@ class Board:
                return chute[1]*-1
         return 0
 
-test = Board()
-print(test.position_adjustment(24))
 
-
-class Player(board):
+class Player:
     def __init__(self, board):
-        self.board = board;
-        self.position;
-        pass
+        self.board = board
+        self.position
 
     def move(self):
-        pass
+        self.position += random.randint(1, 6)
+        self.position += self.board.position_adjustment(self.position)
 
 
 class ResilientPlayer(Player):
