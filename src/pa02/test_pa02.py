@@ -113,8 +113,6 @@ class TestResilientPlayer:
             elif p_count < pr_count:
                 p_wins += 1
 
-        print(pr_wins, p_wins)
-
         if p_wins > 0:
             # This factor can be adjusted using statistics,
             # but we won't in this case.
@@ -160,8 +158,6 @@ class TestLazyPlayer:
             elif p_count < pl_count:
                 p_wins += 1
 
-        print(pl_wins, p_wins)
-
         if pl_wins > 0 and p_wins > 0:
             # This factor can be adjusted using statistics,
             # but we won't in this case.
@@ -169,10 +165,3 @@ class TestLazyPlayer:
             assert (p_wins/pl_wins > factor)
         else:
             assert False
-
-
-class TestSimulation:
-    """
-    Additional test(s) for Simulation class.
-    """
-    pass
