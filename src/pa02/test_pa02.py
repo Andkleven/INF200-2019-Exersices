@@ -9,7 +9,7 @@ __email__ = 'andermat@nmbu.no, kristiakr@nmbu.no'
 
 
 import src.pa02.chutes_simulation as cs
-import pytest
+# import pytest
 
 
 class TestBoard:
@@ -17,6 +17,34 @@ class TestBoard:
     Additional tests for Board class.
     """
     pass
+
+    def test_chutes_go_down(self):
+        """se """
+        b = cs.Board()
+        for position in range(b.goal):
+            old_position = position
+            if b.chutes[0][0] == position:
+                chute = True
+            else
+                chute = False
+            new_position = b.position_adjustment(position)
+            if chute:
+                assert(new_position < old_position)
+
+    def test_ladders_go_up(self):
+        """se """
+        b = cs.Board()
+        b = cs.Board()
+        for position in range(b.goal):
+            old_position = position
+            if b.ladders[0][0] == position:
+                ladder = True
+            else
+                ladder = False
+            new_position = b.position_adjustment(position)
+            if ladder:
+                assert (new_position > old_position)
+
 
 
 class TestPlayer:
@@ -27,12 +55,19 @@ class TestPlayer:
         """position positive after move"""
         b = cs.Board()
         p = cs.Player()
-        p.move()
-        assert(p.position > 1)
+        for _ in range(20):
+            p.move()
+            assert(p.position > 0)
 
-    def function(self):
+    def test_move_changes_position(self):
         """description"""
-        pass
+        b = cs.Board()
+        p = cs.Player()
+        for _ in range(20):
+            old_position = p.position
+            p.move()
+            assert (p.position != old_position)
+
 
 class TestResilientPlayer:
     """

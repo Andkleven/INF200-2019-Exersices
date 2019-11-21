@@ -85,10 +85,6 @@ class ResilientPlayer(Player):
 
     Attributes
     ----------
-    board : object
-        Which board the player "lives" on.
-    position : int
-        The players current position.
     get_extra_steps : bool
         If the player slipped the last round and will take extra steps.
     extra_steps : int
@@ -121,10 +117,6 @@ class LazyPlayer(Player):
 
     Attributes
     ----------
-    board : object
-        Which board the player "lives" on.
-    position : int
-        The players current position.
     get_dropped_steps : bool
         If the player moved up and will drop some steps.
     dropped_steps : int
