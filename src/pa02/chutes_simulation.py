@@ -41,13 +41,40 @@ class Player:
 
 
 class ResilientPlayer(Player):
-    def __init__(self):
+    def __init__(self, extra_steps=1):
         super().__init__()
+        self.get_extra_steps = False
+        self.extra_steps = extra_steps
+
+    def move(self):
+        self.position += random.randint(1, 6)
+        if self.get_extra_steps:
+            self.position += self.extra_steps
+            self.get_extra_steps = False
+        change_in_position = self.board.position_adjustment(self.position)
+        if change_in_position < 0:
+            self.get_extra_steps = True
+        self.position += change_in_position
 
 
 class LazyPlayer(Player):
-    def __init__(self):
+    def __init__(self, dropped_steps=1):
         super().__init__()
+        self.get_dropped_steps = False
+        self.dropped_steps = dropped_steps
+
+    def move(self):
+        steps = random.randint(1, 6)
+        if self.get_dropped_steps:
+            steps -= self.dropped_steps
+            if steps < 0:
+                steps = 0
+            self.get_dropped_steps = False
+        self.position += steps
+        change_in_position = self.board.position_adjustment(self.position)
+        if change_in_position > 0:
+            self.get_dropped_steps = True
+        self.position += change_in_position
 
 
 class Simulation(players, randomize_players):
