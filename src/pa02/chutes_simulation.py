@@ -41,8 +41,8 @@ class Player:
 
 
 class ResilientPlayer(Player):
-    def __init__(self, extra_steps=1):
-        super().__init__()
+    def __init__(self, board, extra_steps=1):
+        super().__init__(board)
         self.get_extra_steps = False
         self.extra_steps = extra_steps
 
@@ -58,8 +58,8 @@ class ResilientPlayer(Player):
 
 
 class LazyPlayer(Player):
-    def __init__(self, dropped_steps=1):
-        super().__init__()
+    def __init__(self, board, dropped_steps=1):
+        super().__init__(board)
         self.get_dropped_steps = False
         self.dropped_steps = dropped_steps
 
@@ -78,7 +78,7 @@ class LazyPlayer(Player):
 
 
 class Simulation:
-    def __init__(self, players, randomize_players):
+    def __init__(self, player_field, seed=1, board=Board(), randomize_players=False):
         """
         Initialise the simulation
 
@@ -86,8 +86,11 @@ class Simulation:
         ---------
 
         """
-        self.players = players
+        self.player_field = player_field
+        self.randomize_players = randomize_players
         self.winners = []
+        random.seed(seed)
+        self.board = board
 
     def single_game(self):
         """
@@ -100,12 +103,15 @@ class Simulation:
         str : winner_type
             The type of the winner
         """
+        if self.randomize_players:
+            random.shuffle(self.player_field)
         best_player = 0
-        for player in self.players:
-            while not player.goal_reached(player.position):
+        for player in self.player_field:
+            print(player)
+            while not self.board.goal_reached(player.position):
                 player.move()
             if best_player == 0 or player.position < best_player[0]:
-                best_player = (player.position, str(player))
+                best_player = (player.position, type(player).__name__)
         return best_player
 
     def run_simulation(self, games):
@@ -184,7 +190,7 @@ class Simulation:
             Dictionary showing how many players of each type
         """
         participate = {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
-        for player in self.players:
+        for player in self.player_field:
             if 'Player' == player[1]:
                 participate['Player'] += 1
             elif 'ResilientPlayer' == player[1]:
@@ -194,6 +200,8 @@ class Simulation:
         return participate
 
 
-
 if __name__ == "__main__":
-    pass
+    s = Board()
+    a = Player(s)
+    b = Simulation([a])
+    b.single_game()
