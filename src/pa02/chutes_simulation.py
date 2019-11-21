@@ -33,7 +33,7 @@ class Board:
 class Player:
     def __init__(self, board):
         self.board = board
-        self.position
+        self.position = 0
 
     def move(self):
         self.position += random.randint(1, 6)
@@ -77,8 +77,8 @@ class LazyPlayer(Player):
         self.position += change_in_position
 
 
-class Simulation(players, randomize_players):
-    def __init__(self):
+class Simulation:
+    def __init__(self, players, randomize_players):
         """
         Initialise the simulation
 
@@ -86,7 +86,8 @@ class Simulation(players, randomize_players):
         ---------
 
         """
-        pass
+        self.players = players
+        self.winners = []
 
     def single_game(self):
         """
@@ -99,13 +100,20 @@ class Simulation(players, randomize_players):
         str : winner_type
             The type of the winner
         """
-        pass
+        best_player = 0
+        for player in self.players:
+            while not player.goal_reached(player.position):
+                player.move()
+            if best_player == 0 or player.position < best_player[0]:
+                best_player = (player.position, str(player))
+        return best_player
 
     def run_simulation(self, games):
         """
         Runs a given number of games and stores the results in the Simulation
         object.
         """
+        self.winners = [self.single_game() for _ in games]
 
     def get_results(self):
         """
@@ -120,7 +128,7 @@ class Simulation(players, randomize_players):
         str : winner_type
             The type of the winner
         """
-        pass
+        return self.winners
 
     def winners_per_type(self):
         """
@@ -132,7 +140,14 @@ class Simulation(players, randomize_players):
         dict : winners_per_type
             Dictionary mapping player types to the number of wins
         """
-        pass
+        winners = {}
+        for number_of_game in self.winners:
+            if 'Player' == number_of_game[1]:
+                winners['Player'] += 1
+            elif 'ResilientPlayer' == number_of_game[1]:
+                winners['ResilientPlayer'] += 1
+            elif 'ResilientPlayer' == number_of_game[1]:
+                winners['ResilientPlayer'] += 1
 
     def durations_per_type(self):
         """
@@ -148,7 +163,14 @@ class Simulation(players, randomize_players):
             Dictionary mapping player types to lists of game durations
             for that type
         """
-        pass
+        winners = {'Player': [], 'LazyPlayer': [], 'ResilientPlayer': []}
+        for number_of_game in self.winners:
+            if 'Player' == number_of_game[1]:
+                winners['Player'].append(number_of_game[0])
+            elif 'ResilientPlayer' == number_of_game[1]:
+                winners['ResilientPlayer'].append(number_of_game[0])
+            elif 'ResilientPlayer' == number_of_game[1]:
+                winners['ResilientPlayer'].append(number_of_game[0])
 
     def players_per_type(self):
         """
@@ -161,7 +183,7 @@ class Simulation(players, randomize_players):
         dict : players_per_type
             Dictionary showing how many players of each type
         """
-        pass
+        self.players
 
 
 if __name__ == "__main__":
