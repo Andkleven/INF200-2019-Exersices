@@ -67,7 +67,8 @@ class Player:
 
     def move(self):
         """
-
+        The move() method moves the player by implementing a die cast, the
+        following move and, if necessary, a move up a ladder or down a chute.
         """
         self.position += random.randint(1, 6)
         self.position += self.board.position_adjustment(self.position)
@@ -161,10 +162,12 @@ class Simulation(players, randomize_players):
 
         Returns
         ---------
-        moves : int
-            Number of moves made
-        winner_type : str
-            The type of the winner
+        best_player : tuple
+            Tuple of the winner's moves and type
+            moves : int
+                Number of moves made
+            winner_type : str
+                The type of the winner
         """
         pass
 

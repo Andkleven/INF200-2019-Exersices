@@ -6,3 +6,9 @@ Extended set of tests for PA02.
 
 __author__ = 'Anders Mathiesen, Kristian Kramås'
 __email__ = 'andermat@nmbu.no, kristiakr@nmbu.no'
+
+
+class TestBoard:
+    """
+    Additional tests for Board class.
+    """
