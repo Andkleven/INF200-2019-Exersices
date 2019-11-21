@@ -16,3 +16,25 @@ class Board():
     def position_adjustment(self, current_pos):
         return {**self.snakes, **self.ladders}.get(current_pos, default=0)
 
+
+class Player(board):
+    def __init__(self):
+        pass
+
+    def move(self):
+        pass
+
+
+class ResilientPlayer(Player):
+    def __init__(self):
+        super().__init__()
+
+
+class LazyPlayer(Player):
+    def __init__(self):
+        super().__init__()
+
+
+class Simulation():
+    def __init__(self):
+        pass
