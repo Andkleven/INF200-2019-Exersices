@@ -183,7 +183,16 @@ class Simulation:
         dict : players_per_type
             Dictionary showing how many players of each type
         """
-        self.players
+        participate = {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
+        for player in self.players:
+            if 'Player' == player[1]:
+                participate['Player'] += 1
+            elif 'ResilientPlayer' == player[1]:
+                participate['ResilientPlayer'] += 1
+            elif 'ResilientPlayer' == player[1]:
+                participate['ResilientPlayer'] += 1
+        return participate
+
 
 
 if __name__ == "__main__":
