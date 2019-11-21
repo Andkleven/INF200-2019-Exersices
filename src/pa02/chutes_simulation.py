@@ -10,4 +10,9 @@ class Board():
         self.snakes = snakes
         self.goal = goal
 
-    def goal_reached(self, ):
+    def goal_reached(self, current_pos):
+        return current_pos <= self.goal
+
+    def position_adjustment(self, current_pos):
+        return {**self.snakes, **self.ladders}.get(current_pos, default=0)
+
