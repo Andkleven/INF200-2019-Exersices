@@ -12,7 +12,26 @@ import random
 
 
 class Board:
-    def __init__(self, ladders=[(1, 39), (8, 2), (36, 16), (43, 19), (49, 30), (65, 17), (68, 14)], chutes=[(24, 19), (33, 30), (42, 12), (56, 19), (64, 37), (74, 62), (87, 17)], goal=90):
+    """
+    Manages all information about ladders, snakes, and the goal.
+
+    Attributes
+    ----------
+    ladders : list of tuples
+        List of snakes (or chutes), giving positions and how many steps up
+        the player must move.
+    chutes : list of tuples
+        List of snakes (or chutes), giving positions and how many steps down
+        the player must move.
+    goal : int
+        Position of goal.
+    """
+    def __init__(self,
+                 ladders=[(1, 39), (8, 2), (36, 16), (43, 19), (49, 30),
+                          (65, 17), (68, 14)],
+                 chutes=[(24, 19), (33, 30), (42, 12), (56, 19), (64, 37),
+                         (74, 62), (87, 17)], goal=90
+                 ):
         self.ladders = ladders
         self.chutes = chutes
         self.goal = goal
@@ -31,16 +50,46 @@ class Board:
 
 
 class Player:
+    """
+    Manages information about player position, including information on which
+    board a player “lives”.
+
+    Attributes
+    ----------
+    board : object
+        Which board the player "lives" on.
+    position : int
+        The players current position.
+    """
     def __init__(self, board):
         self.board = board
         self.position = 0
 
     def move(self):
+        """
+        The move() method moves the player by implementing a die cast, the
+        following move and, if necessary, a move up a ladder or down a chute.
+        """
         self.position += random.randint(1, 6)
         self.position += self.board.position_adjustment(self.position)
 
 
 class ResilientPlayer(Player):
+    """
+    This is a subclass of Player with slightly different moving behavior:
+    When a resilient player slips down a chute, he will take extra steps in
+    the next move, in addition to the roll of the die. The number of extra
+    steps is provided as an argument to the constructor, default is 1.
+    Extra steps are taken immediately after the steps prescribed by the die
+    and before snakes and ladders are checked.
+
+    Attributes
+    ----------
+    get_extra_steps : bool
+        If the player slipped the last round and will take extra steps.
+    extra_steps : int
+        Amount of extra steps to be taken.
+    """
     def __init__(self, board, extra_steps=1):
         super().__init__(board)
         self.get_extra_steps = False
@@ -58,6 +107,21 @@ class ResilientPlayer(Player):
 
 
 class LazyPlayer(Player):
+    """
+    This is a subclass of Player as well. After climbing a ladder, a lazy
+    player drops a given number of steps. The number of dropped steps is an
+    optional argument to the constructor, default is 1.
+    The player never moves backward: if, e.g., the die cast results in 1 step
+    and the player is to drop 3 steps, the player does not move -2 steps
+    but just stays in place.
+
+    Attributes
+    ----------
+    get_dropped_steps : bool
+        If the player moved up and will drop some steps.
+    dropped_steps : int
+        Amount of extra steps to be dropped.
+    """
     def __init__(self, board, dropped_steps=1):
         super().__init__(board)
         self.get_dropped_steps = False
@@ -81,10 +145,6 @@ class Simulation:
     def __init__(self, player_field, seed=1, board=Board(), randomize_players=False):
         """
         Initialise the simulation
-
-        Arguments
-        ---------
-
         """
         self.player_field = player_field
         self.randomize_players = randomize_players
@@ -98,10 +158,12 @@ class Simulation:
 
         Returns
         ---------
-        int : moves
-            Number of moves made
-        str : winner_type
-            The type of the winner
+        best_player : tuple
+            Tuple of the winner's moves and type
+            moves : int
+                Number of moves made
+            winner_type : str
+                The type of the winner
         """
         if self.randomize_players:
             random.shuffle(self.player_field)
@@ -129,9 +191,9 @@ class Simulation:
 
         Returns
         -------
-        int : moves
+        moves : int
             Number of moves made
-        str : winner_type
+        winner_type : str
             The type of the winner
         """
         return self.winners
@@ -143,7 +205,7 @@ class Simulation:
 
         Returns
         -------
-        dict : winners_per_type
+        winners_per_type : dict
             Dictionary mapping player types to the number of wins
         """
         winners = {}
@@ -165,7 +227,7 @@ class Simulation:
 
         Returns
         -------
-        dict : durations_per_type
+        durations_per_type : dict
             Dictionary mapping player types to lists of game durations
             for that type
         """
@@ -186,7 +248,7 @@ class Simulation:
 
         Returns
         -------
-        dict : players_per_type
+        players_per_type : dict
             Dictionary showing how many players of each type
         """
         participate = {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
