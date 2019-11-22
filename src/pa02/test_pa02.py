@@ -165,3 +165,4 @@ class TestLazyPlayer:
             assert (p_wins/pl_wins > factor)
         else:
             assert False
+

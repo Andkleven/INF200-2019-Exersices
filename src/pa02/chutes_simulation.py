@@ -7,7 +7,6 @@ An object-oriented implementation of a Snakes & Ladders simulator.
 __author__ = 'Anders Mathiesen, Kristian Kramås'
 __email__ = 'andermat@nmbu.no, kristiakr@nmbu.no'
 
-
 import random
 
 
@@ -26,26 +25,31 @@ class Board:
     goal : int
         Position of goal.
     """
+
     def __init__(self,
-                 ladders=[(1, 39), (8, 2), (36, 16), (43, 19), (49, 30),
-                          (65, 17), (68, 14)],
-                 chutes=[(24, 19), (33, 30), (42, 12), (56, 19), (64, 37),
-                         (74, 62), (87, 17)], goal=90
+                 ladders=None,
+                 chutes=None, goal=90
                  ):
+        if ladders is None:
+            ladders = [(1, 39), (8, 2), (36, 16), (43, 19), (49, 30),
+                       (65, 17), (68, 14)]
+        if chutes is None:
+            chutes = [(24, 19), (33, 30), (42, 12), (56, 19), (64, 37),
+                      (74, 62), (87, 17)]
         self.ladders = ladders
         self.chutes = chutes
         self.goal = goal
 
     def goal_reached(self, current_pos):
-        return current_pos <= self.goal
+        return self.goal <= current_pos
 
     def position_adjustment(self, current_pos):
         for ladder in self.ladders:
             if ladder[0] == current_pos:
-               return ladder[1]
+                return ladder[1]
         for chute in self.chutes:
             if chute[0] == current_pos:
-               return chute[1]*-1
+                return chute[1] * -1
         return 0
 
 
@@ -61,6 +65,7 @@ class Player:
     position : int
         The players current position.
     """
+
     def __init__(self, board):
         self.board = board
         self.position = 0
@@ -90,6 +95,7 @@ class ResilientPlayer(Player):
     extra_steps : int
         Amount of extra steps to be taken.
     """
+
     def __init__(self, board, extra_steps=1):
         super().__init__(board)
         self.get_extra_steps = False
@@ -122,6 +128,7 @@ class LazyPlayer(Player):
     dropped_steps : int
         Amount of extra steps to be dropped.
     """
+
     def __init__(self, board, dropped_steps=1):
         super().__init__(board)
         self.get_dropped_steps = False
@@ -169,7 +176,7 @@ class Simulation:
             random.shuffle(self.player_field)
         best_player = 0
         for player in self.player_field:
-            print(player)
+            player = player(self.board)
             while not self.board.goal_reached(player.position):
                 player.move()
             if best_player == 0 or player.position < best_player[0]:
@@ -181,7 +188,7 @@ class Simulation:
         Runs a given number of games and stores the results in the Simulation
         object.
         """
-        self.winners = [self.single_game() for _ in games]
+        self.winners.extend([self.single_game() for _ in range(games)])
 
     def get_results(self):
         """
@@ -208,14 +215,15 @@ class Simulation:
         winners_per_type : dict
             Dictionary mapping player types to the number of wins
         """
-        winners = {}
+        winner = {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
         for number_of_game in self.winners:
             if 'Player' == number_of_game[1]:
-                winners['Player'] += 1
+                winner['Player'] += 1
             elif 'ResilientPlayer' == number_of_game[1]:
-                winners['ResilientPlayer'] += 1
+                winner['ResilientPlayer'] += 1
             elif 'ResilientPlayer' == number_of_game[1]:
-                winners['ResilientPlayer'] += 1
+                winner['ResilientPlayer'] += 1
+        return winner
 
     def durations_per_type(self):
         """
@@ -231,14 +239,15 @@ class Simulation:
             Dictionary mapping player types to lists of game durations
             for that type
         """
-        winners = {'Player': [], 'LazyPlayer': [], 'ResilientPlayer': []}
+        winner = {'Player': [], 'LazyPlayer': [], 'ResilientPlayer': []}
         for number_of_game in self.winners:
             if 'Player' == number_of_game[1]:
-                winners['Player'].append(number_of_game[0])
+                winner['Player'].append(number_of_game[0])
             elif 'ResilientPlayer' == number_of_game[1]:
-                winners['ResilientPlayer'].append(number_of_game[0])
+                winner['ResilientPlayer'].append(number_of_game[0])
             elif 'ResilientPlayer' == number_of_game[1]:
-                winners['ResilientPlayer'].append(number_of_game[0])
+                winner['ResilientPlayer'].append(number_of_game[0])
+        return winner
 
     def players_per_type(self):
         """
@@ -253,17 +262,18 @@ class Simulation:
         """
         participate = {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
         for player in self.player_field:
-            if 'Player' == player[1]:
+            player_type = type(player(self.board)).__name__
+            if 'Player' == player_type:
                 participate['Player'] += 1
-            elif 'ResilientPlayer' == player[1]:
+            elif 'ResilientPlayer' == player_type:
                 participate['ResilientPlayer'] += 1
-            elif 'ResilientPlayer' == player[1]:
+            elif 'ResilientPlayer' == player_type:
                 participate['ResilientPlayer'] += 1
         return participate
 
 
 if __name__ == "__main__":
-    s = Board()
-    a = Player(s)
-    b = Simulation([a])
-    b.single_game()
+    s = Simulation([Player, LazyPlayer, ResilientPlayer])
+    s.run_simulation(10)
+    w = s.winners_per_type()
+    print(w)

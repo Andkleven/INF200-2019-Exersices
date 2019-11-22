@@ -109,6 +109,7 @@ class TestSimulation:
         """single_game() returns non-negative number and class name"""
         s = cs.Simulation([cs.Player, cs.Player])
         nos, wc = s.single_game()
+        print(nos, wc)
         assert nos > 0
         assert wc == 'Player'
 
